@@ -2,6 +2,8 @@
 #define KEY_H
 
 #include <string>
+#include <unistd.h>
+using namespace std;
 
 class Key
 {
@@ -9,11 +11,11 @@ class Key
 
     Key();
 
-    string generate(int numberOfBytes);
+    string generate(int numberOfBits);
 
   private:
 
-    int numberOfBytes;
+    int numberOfBits;
     string  keyText;
 };
 

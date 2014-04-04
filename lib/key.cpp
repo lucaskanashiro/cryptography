@@ -1,38 +1,41 @@
 #include "key.h"
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
 Key::Key(){}
+
+void writeKeyInFile(string key);
 
 string
 Key::generate(int numberOfBits)
 {
   this->numberOfBits = numberOfBits;
 
-  string randomKey;
+  ostringstream randomKey;
+
+  srand(time(NULL) + (getpid()/2));
 
   for(int i=0; i<(numberOfBits/8); i++)
   {
-    srand(time(NULL) + (getpid()/2));
-
-    randomKey[i] = rand() % 94 + 33;
-
-    srand(rand());
+    randomKey << (char)(rand() % 94 + 33);
   }
 
-  writeKeyInFile(randomKey);
+  writeKeyInFile(randomKey.str());
 
-  return randomKey;
+  return randomKey.str();
 }
 
-void writeKeyInFile(string key)
+void 
+writeKeyInFile(string key)
 {
   ofstream output;
   
   output.open("key.txt");
-
-  output << key;
+  
+	output << key;
 
   output.close();
 }
