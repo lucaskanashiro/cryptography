@@ -4,6 +4,10 @@
 #include "key.h"
 #include <string>
 #include <algorithm>
+#include <iostream>
+#include <vector>
+#include <map>
+using namespace std;
 
 class Encryption
 {

@@ -39,41 +39,52 @@ Encryption::vernam(string text, string key)
 string 
 Encryption::transposition(string text, string key)
 {
+	string cypher;
+	cypher = this->lineTransposition(text,key);
 
-	text = this->lineTransposition(text,key);
-
-	return  text;
+	return  cypher;
 }
 
 
 string
 Encryption::lineTransposition(string text,string key)
 {
-	string columm[8],result;
-	unsigned int itext,icolumm;
+		map<char,string> matrix;
+		unsigned int imatrix, space,maxSize,i;
+		string result;
 
-	key = prepareKey(key);
-	key.erase(key.begin()+8,key.end());
+		key = this->prepareKey(key);
+		key.erase(key.begin()+8,key.end());
 
-	for(int i=0;i<8;i++)
-		columm[i] += key[i];	
-	
-	for(itext=0,icolumm=0;itext<text.size();itext++,icolumm = (icolumm+1)%8)
-			columm[icolumm] += text[itext];
+		for( i=0;i<key.size();i++)
+			matrix[key[i]] = "";
 
-	sort(key.begin(),key.end());
-
-	for(int i=0;i<8;i++)			
-	{
-		for(int j=0;j<8;j++)
+		imatrix = 0;
+		for(i=0;i<text.size();i++,imatrix = (imatrix+1)%8)
 		{
-			if(key[i] == columm[j][0]){
-				columm[j].erase(0,1);
-				result+= columm[j];
+				matrix[key[imatrix]] += text[i]; 
+		}
+
+		maxSize = 0;	
+		for(i=0;i<key.size();i++)
+			if( maxSize < matrix[key[i]].size())
+					maxSize = matrix[key[i]].size(); 
+
+		for(i=0;i<key.size();i++){
+			space = maxSize- matrix[key[i]].size();
+			if( space != 0 ){	
+				while(space != 0){
+					matrix[key[i]] += " ";
+					space--;	
+				}
 			}
 		}
-	}
-	return result;
+
+		sort(key.begin(),key.end());
+		for(i=0;i<8;i++)
+			result += matrix[key[i]];
+		
+		return result;
 }
 
 string 
@@ -87,17 +98,13 @@ string
 Encryption::prepareKey(string key){
 	string result;	
 	result += key[0];
-	
-	for(unsigned int i=1;i<key.size();i++)
-	{
+	for(unsigned int i=1;i<key.size();i++){
 		if( 0 == count(result.begin(),result.end(),key[i]) ){
 			result+= key[i];
 		}
 	}
 	return result;
 }
-
-
 
 string 
 Encryption::cypher(string text, string key, int FLAG)

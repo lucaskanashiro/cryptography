@@ -3,7 +3,10 @@
 
 #include "key.h"
 #include <string>
-
+#include <algorithm>
+using namespace std;
+#include <iostream>
+#include <map>
 class Decryption
 {
   public:
@@ -18,6 +21,8 @@ class Decryption
     string monoalphabetic(string cypherText, string key);
     string vernam(string cypherText, string key);
 
+		string prepareKey(string key);
+		string lineTransposition(string cypherText,string key);
     string transposition(string cypherText, string key);
 };
 
