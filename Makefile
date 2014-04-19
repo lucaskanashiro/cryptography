@@ -1,6 +1,6 @@
 
 main = lib/main.cpp
-lib = lib/key.cpp lib/encryption.cpp 
+lib = lib/key.cpp lib/encryption.cpp lib/decryption.cpp
 flags = -W -Wall -pedantic -ansi
 
 all:
