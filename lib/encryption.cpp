@@ -11,33 +11,27 @@ Encryption::substitution(string text, string key)
 string 
 Encryption::monoalphabetic(string text, string key)
 {
-
+	return " ";
 }
 
 string 
 Encryption::vernam(string text, string key)
 {
-
+	return " ";
 }
 
 string 
 Encryption::transposition(string text, string key)
 {
 	string matrix[8],result;
-
 	unsigned int itext,imatrix;
 	
-	itext = 0;
-	imatrix = 0;
+	itext = imatrix = 0;
 	while(itext < text.size()){
-				
-		if(imatrix == 8){
-			imatrix = 0;
-		}
-				
+
 		matrix[imatrix] += text[itext];
 	
-		imatrix++;
+		imatrix = (imatrix+1) % 8;
 		itext++;
 	}
 

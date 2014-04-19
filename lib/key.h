@@ -11,12 +11,13 @@ class Key
 
     Key();
 
-    void generate(int numberOfBits);
+    void generate(string fileName,int numberOfBits);
+		void readKeyInFile(string fileName);
     string getKeyText();
 
   private:
 
-    void writeKeyInFile(string key);
+    void writeKeyInFile(string fileName,string key);
 
     int numberOfBits;
     string  keyText;

@@ -8,19 +8,38 @@
 Key::Key(){}
 
 void 
-Key::writeKeyInFile(string key)
+Key::writeKeyInFile(string fileName,string key)
 {
   ofstream output;
   
-  output.open("key.txt");
+  output.open(fileName.c_str());
   
 	output << key;
 
   output.close();
 }
 
+
 void
-Key::generate(int numberOfBits)
+Key::readKeyInFile(string fileName)
+{
+	ifstream input;
+
+	input.open(fileName.c_str());
+
+	if(!input.is_open()){
+		cout << "Arquivo aberto ou nao existe."<<endl;
+		return;
+	}
+	
+	getline(input,this->keyText);
+
+	input.close();
+}
+
+
+void
+Key::generate(string fileName,int numberOfBits)
 {
   this->numberOfBits = numberOfBits;
 
@@ -33,7 +52,7 @@ Key::generate(int numberOfBits)
     randomKey << (char)(rand() % 94 + 33);
   }
 
-  writeKeyInFile(randomKey.str());
+  writeKeyInFile(fileName,randomKey.str());
 
   this->keyText = randomKey.str();
 }

@@ -12,7 +12,7 @@ int main(){
 	Key key;
 	Encryption encryption;
 
-	key.generate(512);  // 16 bytes
+					key.generate("key.txt",512);  
   cout << key.getKeyText() << endl;
 
 	string result;
