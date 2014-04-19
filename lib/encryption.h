@@ -3,6 +3,7 @@
 
 #include "key.h"
 #include <string>
+#include <algorithm>
 
 class Encryption
 {
@@ -18,6 +19,9 @@ class Encryption
     string monoalphabetic(string text, string key);
     string vernam(string text, string key);
 
+		string prepareKey(string key);
+		string colummTransposition(string text , string key);
+		string lineTransposition(string text,string key);
 		string transposition(string text, string key);
 };
 

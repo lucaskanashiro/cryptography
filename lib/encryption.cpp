@@ -39,23 +39,65 @@ Encryption::vernam(string text, string key)
 string 
 Encryption::transposition(string text, string key)
 {
-	string matrix[8],result;
-	unsigned int itext,imatrix;
-	
-	itext = imatrix = 0;
-	while(itext < text.size()){
 
-		matrix[imatrix] += text[itext];
-	
-		imatrix = (imatrix+1) % 8;
-		itext++;
-	}
+	text = this->lineTransposition(text,key);
 
-	for( imatrix=0;imatrix<8;imatrix++)
-		result += matrix[imatrix];
-
-	return  result;
+	return  text;
 }
+
+
+string
+Encryption::lineTransposition(string text,string key)
+{
+	string columm[8],result;
+	unsigned int itext,icolumm;
+
+	key = prepareKey(key);
+	key.erase(key.begin()+8,key.end());
+
+	for(int i=0;i<8;i++)
+		columm[i] += key[i];	
+	
+	for(itext=0,icolumm=0;itext<text.size();itext++,icolumm = (icolumm+1)%8)
+			columm[icolumm] += text[itext];
+
+	sort(key.begin(),key.end());
+
+	for(int i=0;i<8;i++)			
+	{
+		for(int j=0;j<8;j++)
+		{
+			if(key[i] == columm[j][0]){
+				columm[j].erase(0,1);
+				result+= columm[j];
+			}
+		}
+	}
+	return result;
+}
+
+string 
+Encryption::colummTransposition(string text , string key)
+{
+	return " ";
+}
+
+
+string
+Encryption::prepareKey(string key){
+	string result;	
+	result += key[0];
+	
+	for(unsigned int i=1;i<key.size();i++)
+	{
+		if( 0 == count(result.begin(),result.end(),key[i]) ){
+			result+= key[i];
+		}
+	}
+	return result;
+}
+
+
 
 string 
 Encryption::cypher(string text, string key, int FLAG)
