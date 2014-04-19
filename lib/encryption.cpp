@@ -74,14 +74,14 @@ string
 Encryption::transposition(string text, string key)
 {
 	string cypher;
+//	cypher = this->colummTransposition(text,key);
 	cypher = this->lineTransposition(text,key);
-
 	return  cypher;
 }
 
 
 string
-Encryption::lineTransposition(string text,string key)
+Encryption::colummTransposition(string text,string key)
 {
 		map<char,string> matrix;
 		unsigned int imatrix, space,maxSize,i;
@@ -122,7 +122,7 @@ Encryption::lineTransposition(string text,string key)
 }
 
 string 
-Encryption::colummTransposition(string text , string key)
+Encryption::lineTransposition(string text , string key)
 {
 	return " ";
 }

@@ -28,7 +28,7 @@ Key::readKeyInFile(string fileName)
 	input.open(fileName.c_str());
 
 	if(!input.is_open()){
-		cout << "Arquivo aberto ou nao existe."<<endl;
+		cout << "The file do not exist or is opened."<<endl;
 		return;
 	}
 	

@@ -52,13 +52,13 @@ int main(int argc, char *argv[]){
 	cout << "TRANSPOSICAO: [" << cypherTextTransposition << "]" << endl;
   cout << "SUBSTITUICAO : [" << cypherTextSubstitution << "]" << endl << endl;
 
-  string cypherText = encryption.cypher(text, key.getKeyText(), SUBSTITUTION);
-	string cypherText2 = encryption.cypher(text ,key.getKeyText(), TRANSPOSITION);
+  string cypherText = encryption.cypher(text, key, SUBSTITUTION);
+	string cypherText2 = encryption.cypher(text ,key, TRANSPOSITION);
   
 	cout << "DECRYPTION" << endl;
 	
-	cout << "TRANSPOSICAO: [" << decryption.decrypt(cypherText2 ,key.getKeyText(), TRANSPOSITION) << "]" << endl;
-  cout << "SUBSTITUICAO : [" << decryption.decrypt(cypherText, key.getKeyText(), SUBSTITUTION) << "]" << endl;
+	cout << "TRANSPOSICAO: [" << decryption.decrypt(cypherText2 ,key, TRANSPOSITION) << "]" << endl;
+  cout << "SUBSTITUICAO : [" << decryption.decrypt(cypherText, key, SUBSTITUTION) << "]" << endl;
 
 	return 0;
 }

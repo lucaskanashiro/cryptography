@@ -89,7 +89,7 @@ Decryption::decrypt(string cypherText, string key, int FLAG)
 }
 
 string 
-Decryption::lineTransposition(string cypherText,string key)
+Decryption::colummTransposition(string cypherText,string key)
 {
 		map<char,string> matrix;
 		unsigned int j,i,imatrix;
@@ -132,10 +132,21 @@ Decryption::prepareKey(string key){
 	return result;
 }
 
+		
+string 
+Decryption::lineTransposition(string cypherText,string key)
+{
+
+	return " ";
+}
+
+
 string 
 Decryption::transposition(string cypherText, string key)
 {
+	//string plainText = this->colummTransposition(cypherText,key);
 	string plainText = this->lineTransposition(cypherText,key);
+
   return plainText;  
 }
 

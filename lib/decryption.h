@@ -22,6 +22,7 @@ class Decryption
     string vernam(string cypherText, string key);
 
 		string prepareKey(string key);
+		string colummTransposition(string cypherText,string key);
 		string lineTransposition(string cypherText,string key);
     string transposition(string cypherText, string key);
 };
