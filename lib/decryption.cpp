@@ -19,7 +19,7 @@ Decryption::monoalphabetic(string cypherText, string key)
   string plainText = cypherText;
 
   for(unsigned int i=0; i<cypherText.size(); i++)
-    plainText[i] = (char) ((int)cypherText[i] - (int)key[0]);
+    plainText[i] = (char) ((int)cypherText[i] - (int)key[0] - (int)key[1]);
 
   return plainText;
 }

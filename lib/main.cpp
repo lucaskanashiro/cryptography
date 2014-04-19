@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
 
   if(argc == 1)
   {
-    cout << "Should pass as parameter the name of .txt file with clear text!!!" << endl;
+    cout << "Should pass as parameter the name of .txt file with clear or cypher text!!!" << endl;
     return -1;
   }
 

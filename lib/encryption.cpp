@@ -19,7 +19,7 @@ Encryption::monoalphabetic(string text, string key)
   string cypherText = text;
 
   for(unsigned int i=0; i<text.size(); i++)
-    cypherText[i] = (char) ((int)text[i] + (int)key[0]);
+    cypherText[i] = (char) ((int)text[i] + (int)key[0] + (int)key[1]);
 
   return cypherText;
 }
