@@ -7,29 +7,8 @@
 
 Key::Key(){}
 
-void writeKeyInFile(string key);
-
-string
-Key::generate(int numberOfBits)
-{
-  this->numberOfBits = numberOfBits;
-
-  ostringstream randomKey;
-
-  srand(time(NULL) + (getpid()/2));
-
-  for(int i=0; i<(numberOfBits/8); i++)
-  {
-    randomKey << (char)(rand() % 94 + 33);
-  }
-
-  writeKeyInFile(randomKey.str());
-
-  return randomKey.str();
-}
-
 void 
-writeKeyInFile(string key)
+Key::writeKeyInFile(string key)
 {
   ofstream output;
   
@@ -38,5 +17,30 @@ writeKeyInFile(string key)
 	output << key;
 
   output.close();
+}
+
+void
+Key::generate(int numberOfBits)
+{
+  this->numberOfBits = numberOfBits;
+
+  ostringstream randomKey;
+
+  srand(time(NULL) + (getpid()/2));
+
+  for(int i=0; i<(this->numberOfBits/8); i++)
+  {
+    randomKey << (char)(rand() % 94 + 33);
+  }
+
+  writeKeyInFile(randomKey.str());
+
+  this->keyText = randomKey.str();
+}
+
+string
+Key::getKeyText()
+{
+  return this->keyText;
 }
 

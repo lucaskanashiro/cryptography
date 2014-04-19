@@ -3,14 +3,25 @@
 Encryption::Encryption(){}
 
 string
-Encryption::substitution(string text, Key key)
+Encryption::substitution(string text, string key)
 {
 	return " ";  
 }
 
+string 
+Encryption::monoalphabetic(string text, string key)
+{
+
+}
 
 string 
-Encryption::transposition(string text,Key key)
+Encryption::vernam(string text, string key)
+{
+
+}
+
+string 
+Encryption::transposition(string text, string key)
 {
 	string matrix[8],result;
 
@@ -35,10 +46,20 @@ Encryption::transposition(string text,Key key)
 
 	return  result;
 }
-/*
+
 string 
-Encryption::cypher(string text,Key key)
+Encryption::cypher(string text, string key, int FLAG)
 {
-	return " ";
+  string cypherText;
+
+	switch(FLAG)
+  {
+    case 1:
+      cypherText = this->transposition(text, key);
+    case 2:
+      cypherText = this->substitution(text, key);
+  }
+
+  return cypherText;
 }
-*/
+
