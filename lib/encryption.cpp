@@ -5,19 +5,35 @@ Encryption::Encryption(){}
 string
 Encryption::substitution(string text, string key)
 {
-	return " ";  
+  string cypherText;
+
+  cypherText = this->monoalphabetic(text, key);
+  cypherText = this->vernam(cypherText, key);
+
+  return cypherText;
 }
 
 string 
 Encryption::monoalphabetic(string text, string key)
 {
-	return " ";
+  string cypherText = text;
+
+  for(unsigned int i=0; i<text.size(); i++)
+    cypherText[i] = (char) ((int)text[i] + (int)key[0]);
+
+  return cypherText;
 }
 
 string 
 Encryption::vernam(string text, string key)
 {
-	return " ";
+  string cypherText = text;
+  unsigned int j=0;
+
+  for(unsigned int i=0; i<text.size(); i++, j=((j+1)%key.size()))
+    cypherText[i] = text[i] ^ key[j];
+
+  return cypherText;
 }
 
 string 
@@ -50,8 +66,10 @@ Encryption::cypher(string text, string key, int FLAG)
   {
     case 1:
       cypherText = this->transposition(text, key);
+      break;
     case 2:
       cypherText = this->substitution(text, key);
+      break;
   }
 
   return cypherText;
