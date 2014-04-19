@@ -8,13 +8,13 @@ Decryption::substitution(string cypherText, string key)
   string plainText;
 
   //plainText = this->vernam(cypherText, key);
-  plainText = this->monoalphabetic(cypherText, key);
+  plainText = this->alphabetic(cypherText, key);
 
   return plainText;
 }
 
 string 
-Decryption::monoalphabetic(string cypherText, string key)
+Decryption::alphabetic(string cypherText, string key)
 {
   for(unsigned int i=0; i<cypherText.size(); i++)
   {

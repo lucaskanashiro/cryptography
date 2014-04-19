@@ -7,14 +7,14 @@ Encryption::substitution(string text, string key)
 {
   string cypherText;
 
-  cypherText = this->monoalphabetic(text, key);
+  cypherText = this->alphabetic(text, key);
   //cypherText = this->vernam(cypherText, key);
 
   return cypherText;
 }
 
 string 
-Encryption::monoalphabetic(string text, string key)
+Encryption::alphabetic(string text, string key)
 {
   for(unsigned int i=0; i<text.size(); i++)
   {

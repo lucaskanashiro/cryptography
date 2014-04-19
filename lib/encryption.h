@@ -15,7 +15,7 @@ class Encryption
 	private:
 
     string substitution(string text, string key);
-    string monoalphabetic(string text, string key);
+    string alphabetic(string text, string key);
     string vernam(string text, string key);
 
 		string transposition(string text, string key);
