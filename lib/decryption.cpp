@@ -7,8 +7,8 @@ Decryption::substitution(string cypherText, string key)
 {
   string plainText;
 
-  plainText = this->vernam(cypherText, key);
-  plainText = this->monoalphabetic(plainText, key);
+  //plainText = this->vernam(cypherText, key);
+  plainText = this->monoalphabetic(cypherText, key);
 
   return plainText;
 }
@@ -16,12 +16,41 @@ Decryption::substitution(string cypherText, string key)
 string 
 Decryption::monoalphabetic(string cypherText, string key)
 {
-  string plainText = cypherText;
-
   for(unsigned int i=0; i<cypherText.size(); i++)
-    plainText[i] = (char) ((int)cypherText[i] - (int)key[0] - (int)key[1]);
+  {
+    for(int j=0; j<(((int)key[0]+(int)key[key.size()-1])*(int)(i+1)); j++)
+    {
+      if(cypherText[i] == '0')
+      {
+        cypherText[i] = 32;
+        continue;
+      }
+      else if(cypherText[i] == 'A')
+      {
+        cypherText[i] = '9';
+        continue;
+      }
+      else if(cypherText[i] == 'a')
+      {
+        cypherText[i] = 'Z';
+        continue;
+      }
+      else if(cypherText[i] == 32)
+      {
+        cypherText[i] = 'z';
+        continue;
+      }
+      
+      cypherText[i]--;
+    }
+  }
 
-  return plainText;
+  return cypherText;
+}
+
+bool boundDecryption(char a)
+{
+  return (a==32) || (a>='0'&&a<='9') || (a>='A'&&a<='Z') || (a>='a'&&a<='z');
 }
 
 string 
@@ -31,7 +60,12 @@ Decryption::vernam(string cypherText, string key)
   unsigned int j=0;
 
   for(unsigned int i=0; i<cypherText.size(); i++, j=((j+1)%key.size()))
+  {
     plainText[i] = cypherText[i] ^ key[j];
+
+    //while(!boundDecryption(plainText[i]))
+      //plainText[i]--;
+  }
 
   return plainText;
 }

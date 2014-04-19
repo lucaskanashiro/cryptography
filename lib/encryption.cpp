@@ -8,7 +8,7 @@ Encryption::substitution(string text, string key)
   string cypherText;
 
   cypherText = this->monoalphabetic(text, key);
-  cypherText = this->vernam(cypherText, key);
+  //cypherText = this->vernam(cypherText, key);
 
   return cypherText;
 }
@@ -16,12 +16,41 @@ Encryption::substitution(string text, string key)
 string 
 Encryption::monoalphabetic(string text, string key)
 {
-  string cypherText = text;
-
   for(unsigned int i=0; i<text.size(); i++)
-    cypherText[i] = (char) ((int)text[i] + (int)key[0] + (int)key[1]);
+  {
+    for(int j=0; j<(((int)key[0]+(int)key[key.size()-1])*(int)(i+1)); j++)
+    {
+      if(text[i] == 32)
+      {
+        text[i] = '0';
+        continue;
+      }
+      else if(text[i] == '9')
+      {
+        text[i] = 'A';
+        continue;
+      }
+      else if(text[i] == 'Z')
+      {
+        text[i] = 'a';
+        continue;
+      }
+      else if(text[i] == 'z')
+      {
+        text[i] = 32;
+        continue;
+      }
+      
+      text[i]++;
+    }
+  }
 
-  return cypherText;
+  return text;
+}
+
+bool boundEncryption(char a)
+{
+  return (a==32) || (a>='0'&&a<='9') || (a>='A'&&a<='Z') || (a>='a'&&a<='z');
 }
 
 string 
@@ -31,7 +60,12 @@ Encryption::vernam(string text, string key)
   unsigned int j=0;
 
   for(unsigned int i=0; i<text.size(); i++, j=((j+1)%key.size()))
+  {
     cypherText[i] = text[i] ^ key[j];
+
+    //while(!boundEncryption(cypherText[i]))
+      //cypherText[i]++;
+  }
 
   return cypherText;
 }
