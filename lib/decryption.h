@@ -18,7 +18,7 @@ class Decryption
 	private:
 
     string substitution(string cypherText, string key);
-    string monoalphabetic(string cypherText, string key);
+    string alphabetic(string cypherText, string key);
     string vernam(string cypherText, string key);
 
 		string prepareKey(string key);
