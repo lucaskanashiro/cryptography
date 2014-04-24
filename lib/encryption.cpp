@@ -15,7 +15,7 @@ Encryption::alphabetic(string text, string key)
 {
   for(unsigned int i=0; i<text.size(); i++)
   {
-    for(int j=0; j<(((int)key[0]+(int)key[key.size()-1])*(int)(i+1)); j++)
+    for(int j=0; j<((int)key[0]+(int)key[i%key.size()]); j++)
     {
       if(text[i] == 32)
       {

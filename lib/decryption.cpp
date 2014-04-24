@@ -2,20 +2,12 @@
 
 Decryption::Decryption(){}
 
-string
-Decryption::substitution(string cypherText, string key)
-{
-  string plainText = this->alphabetic(cypherText, key);
-
-  return plainText;
-}
-
 string 
 Decryption::alphabetic(string cypherText, string key)
 {
   for(unsigned int i=0; i<cypherText.size(); i++)
   {
-    for(int j=0; j<(((int)key[0]+(int)key[key.size()-1])*(int)(i+1)); j++)
+    for(int j=0; j<((int)key[0]+(int)key[i%key.size()]); j++)
     {
       if(cypherText[i] == '0')
       {
@@ -43,6 +35,14 @@ Decryption::alphabetic(string cypherText, string key)
   }
 
   return cypherText;
+}
+
+string
+Decryption::substitution(string cypherText, string key)
+{
+  string plainText = this->alphabetic(cypherText, key);
+
+  return plainText;
 }
 
 string 
@@ -81,9 +81,9 @@ Decryption::colummTransposition(string cypherText,string key)
 		imatrix =i= 0;
 		while(  i < cypherText.size())
 		{
-				matrix[ orderedKey[imatrix]] += cypherText[i];
-				i++;
-				if(i%lines == 0)imatrix =(imatrix+1) % 8;
+      matrix[ orderedKey[imatrix]] += cypherText[i];
+      i++;
+      if(i%lines == 0)imatrix =(imatrix+1) % 8;
 		}			
 
 		for(i = 0;i<lines;i++)
