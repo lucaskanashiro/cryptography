@@ -5,10 +5,7 @@ Decryption::Decryption(){}
 string
 Decryption::substitution(string cypherText, string key)
 {
-  string plainText;
-
-  //plainText = this->vernam(cypherText, key);
-  plainText = this->alphabetic(cypherText, key);
+  string plainText = this->alphabetic(cypherText, key);
 
   return plainText;
 }
@@ -48,28 +45,6 @@ Decryption::alphabetic(string cypherText, string key)
   return cypherText;
 }
 
-bool boundDecryption(char a)
-{
-  return (a==32) || (a>='0'&&a<='9') || (a>='A'&&a<='Z') || (a>='a'&&a<='z');
-}
-
-string 
-Decryption::vernam(string cypherText, string key)
-{
-  string plainText = cypherText;
-  unsigned int j=0;
-
-  for(unsigned int i=0; i<cypherText.size(); i++, j=((j+1)%key.size()))
-  {
-    plainText[i] = cypherText[i] ^ key[j];
-
-    //while(!boundDecryption(plainText[i]))
-      //plainText[i]--;
-  }
-
-  return plainText;
-}
-
 string 
 Decryption::decrypt(string cypherText, string key, int FLAG)
 {
@@ -92,9 +67,7 @@ string
 Decryption::colummTransposition(string cypherText,string key)
 {
 		map<char,string> matrix;
-		unsigned int j,i,imatrix;
-		unsigned int maxSize;
-		int lines = cypherText.size()/8;
+		unsigned int j, i, imatrix, lines = cypherText.size()/8;
 		string result,orderedKey;
 
 		key = this->prepareKey(key);
@@ -132,20 +105,10 @@ Decryption::prepareKey(string key){
 	return result;
 }
 
-		
-string 
-Decryption::lineTransposition(string cypherText,string key)
-{
-
-	return " ";
-}
-
-
 string 
 Decryption::transposition(string cypherText, string key)
 {
-	//string plainText = this->colummTransposition(cypherText,key);
-	string plainText = this->lineTransposition(cypherText,key);
+	string plainText = this->colummTransposition(cypherText,key);
 
   return plainText;  
 }

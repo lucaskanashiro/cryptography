@@ -5,10 +5,7 @@ Encryption::Encryption(){}
 string
 Encryption::substitution(string text, string key)
 {
-  string cypherText;
-
-  cypherText = this->alphabetic(text, key);
-  //cypherText = this->vernam(cypherText, key);
+  string cypherText = this->alphabetic(text, key);
 
   return cypherText;
 }
@@ -48,35 +45,12 @@ Encryption::alphabetic(string text, string key)
   return text;
 }
 
-bool boundEncryption(char a)
-{
-  return (a==32) || (a>='0'&&a<='9') || (a>='A'&&a<='Z') || (a>='a'&&a<='z');
-}
-
-string 
-Encryption::vernam(string text, string key)
-{
-  string cypherText = text;
-  unsigned int j=0;
-
-  for(unsigned int i=0; i<text.size(); i++, j=((j+1)%key.size()))
-  {
-    cypherText[i] = text[i] ^ key[j];
-
-    //while(!boundEncryption(cypherText[i]))
-      //cypherText[i]++;
-  }
-
-  return cypherText;
-}
-
 string 
 Encryption::transposition(string text, string key)
 {
-	string cypher;
-//	cypher = this->colummTransposition(text,key);
-	cypher = this->lineTransposition(text,key);
-	return  cypher;
+  string cypherText = this->colummTransposition(text,key);
+
+	return  cypherText;
 }
 
 
@@ -120,13 +94,6 @@ Encryption::colummTransposition(string text,string key)
 		
 		return result;
 }
-
-string 
-Encryption::lineTransposition(string text , string key)
-{
-	return " ";
-}
-
 
 string
 Encryption::prepareKey(string key){
