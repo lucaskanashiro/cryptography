@@ -7,7 +7,7 @@ Decryption::alphabetic(string cypherText, string key)
 {
   for(unsigned int i=0; i<cypherText.size(); i++)
   {
-    for(int j=0; j<((int)key[0]+(int)key[i%key.size()]); j++)
+    for(int j=0; j<((int)key[i]); j++)
     {
       if(cypherText[i] == '0')
       {
