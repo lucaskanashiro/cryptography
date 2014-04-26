@@ -3,62 +3,95 @@
 #include "key.h"
 #include "encryption.h"
 #include "decryption.h"
-
+#include <string>
 using namespace std;
 
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
 
+
+string readFile(string fileName){
+		ifstream fileText;
+		string text;
+		fileText.open(fileName.c_str());
+    getline(fileText, text);
+  	fileText.close();
+		return text;
+}
+
+
 int main(int argc, char *argv[]){
 
-  if(argc != 3)
-  {
-    cout << "Should pass as parameter the name of .txt file with clear or cypher text and key!!!" << endl;
-    return -1;
-  }
+	string name = argv[0];
 
-	//Key key;
-	Encryption encryption;
-  Decryption decryption;
-
-  //key.generate("key.txt",512);  
-  //cout << "KEY: " <<  key.getKeyText() << endl;
-
-  ifstream fileText;
-  fileText.open(argv[1]);
-
-  string text;
-  getline(fileText, text);
-
-  cout << "TEXT: " << text << endl;
-
-  fileText.close();
-
-  ifstream fileKey;
-  fileKey.open(argv[2]);
-
-  string key;
-  getline(fileKey, key);
-
-  cout << "Key: " << key << endl << endl;
-
-  fileKey.close();
-
-  string cypherTextSubstitution = encryption.cypher(text, key, SUBSTITUTION);
-  string cypherTextTransposition = encryption.cypher(text, key, TRANSPOSITION);
-
-  cout << "ENCRYTION" << endl;
-
-	cout << "TRANSPOSICAO: [" << cypherTextTransposition << "]" << endl;
-  cout << "SUBSTITUICAO : [" << cypherTextSubstitution << "]" << endl << endl;
-
-  string cypherText = encryption.cypher(text, key, SUBSTITUTION);
-	string cypherText2 = encryption.cypher(text ,key, TRANSPOSITION);
-  
-	cout << "DECRYPTION" << endl;
+	if(argc != 4)
+	{
+		cout << "Try to type :"<< endl
+				 << " ./cypher <plainText> <key> <mode>" <<endl
+				 << " ./decypher <cypherText> <key> <mode>" << endl
+				 << " Mode = ('-sub') | ('-tran') | ('-all')"<<endl;
+		exit(-1);
+	}
 	
-	cout << "TRANSPOSICAO: [" << decryption.decrypt(cypherText2 ,key, TRANSPOSITION) << "]" << endl;
-  cout << "SUBSTITUICAO : [" << decryption.decrypt(cypherText, key, SUBSTITUTION) << "]" << endl;
+ if( name == "./cypher")
+	{
+		Encryption encryption;
+		string plainText;
+		string key;
+		string cypherText;
+		plainText = readFile(argv[1]);
+		cout << plainText << endl;
+ 	 
+		key = readFile(argv[2]);
+		cout << key << endl;
+
+   string mode = argv[3];
+	 if(mode == "-sub")	
+   {
+     cypherText = encryption.cypher(plainText, key, SUBSTITUTION);
+	 }	
+	 else if(mode == "-tran")
+	 { 
+     cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
+   }
+   else if(mode == "-all")
+	 {
+			cout << "todos" << endl;
+	 }else{
+			cout << "invalid command " << endl;
+			exit(-1);
+	 }
+	 cout <<"["<<cypherText<<"]"<< endl;
+
+	}
+	else 	if( name == "./decypher")
+	{
+  	Decryption decryption;
+
+		string cypherText;
+		string key;
+		string plainText;
+		cypherText = readFile(argv[1]);
+		cout << cypherText << endl;
+ 	 
+		key = readFile(argv[2]);
+		cout << key << endl;
+
+		string mode = argv[3];
+		if(mode == "-sub")
+		{
+      plainText = decryption.decrypt(cypherText, key, SUBSTITUTION);
+		}else if(mode == "-tran")
+		{
+			plainText= decryption.decrypt(cypherText ,key, TRANSPOSITION);
+		}else if(mode == "-all")
+		{
+			cout << "todos" << endl;
+		}else{
+			cout << "invalid comand" << endl;
+		}
+	  cout <<"["<<plainText<<"]"<< endl;
+	}	
 
 	return 0;
 }
