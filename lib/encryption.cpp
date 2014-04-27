@@ -13,9 +13,14 @@ Encryption::substitution(string text, string key)
 string 
 Encryption::alphabetic(string text, string key)
 {
+  int length=0;
+
+  for(unsigned int i=0; i<key.size(); i++)
+    length = (length + key[i]) % text.size();
+
   for(unsigned int i=0; i<text.size(); i++)
   {
-    for(int j=0; j<((int)key[i]); j++)
+    for(int j=0; j<length; j++)
     {
       if(text[i] == 32)
       {

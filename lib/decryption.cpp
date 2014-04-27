@@ -5,9 +5,14 @@ Decryption::Decryption(){}
 string 
 Decryption::alphabetic(string cypherText, string key)
 {
+  int length=0;
+
+  for(unsigned int i=0; i<key.size(); i++)
+    length = (length + key[i]) % cypherText.size();
+
   for(unsigned int i=0; i<cypherText.size(); i++)
   {
-    for(int j=0; j<((int)key[i]); j++)
+    for(int j=0; j<length; j++)
     {
       if(cypherText[i] == '0')
       {
