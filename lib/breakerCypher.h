@@ -8,7 +8,8 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
-
+#include <map>
+#include <cmath>
 using namespace std;
 
 class BreakerCypher

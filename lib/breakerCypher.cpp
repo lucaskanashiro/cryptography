@@ -10,9 +10,98 @@ BreakerCypher::substitution(string cypherText, string plainWords)
   return plainText;
 }
 
+string brokeAlphabetic(string cypherText, int key)
+{
+  for(unsigned int i=0; i<cypherText.size(); i++)
+  {
+    for(int j=0; j<key; j++)
+    {
+      if(cypherText[i] == '0')
+      {
+        cypherText[i] = 32;
+        continue;
+      }
+      else if(cypherText[i] == 'A')
+      {
+        cypherText[i] = '9';
+        continue;
+      }
+      else if(cypherText[i] == 'a')
+      {
+        cypherText[i] = 'Z';
+        continue;
+      }
+      else if(cypherText[i] == 32)
+      {
+        cypherText[i] = 'z';
+        continue;
+      }
+      
+      cypherText[i]--;
+    }
+  }
+
+  return cypherText;
+}
 string 
 BreakerCypher::alphabetic(string cypherText, string plainWords)
 {
+  int key;
+	unsigned int i,j,difference;
+	vector<int> pattern;
+	map<string,vector<int> > diff;
+	stringstream ss (plainWords);
+	bool found ;
+	int aux;
+  vector<string> word;
+  string tmp;
+  while(ss >> tmp) word.push_back(tmp);
+
+
+	for(i=0;i<word.size();i++)
+	{
+		vector<int> d;
+
+		for( j=1;j<word[i].size();j++)
+		{
+			d.push_back( abs(  (int) word[i][j] - (int) word[i][j-1])  );
+		}
+		diff.insert(pair<string,vector<int> >(word[i],d));
+		d.clear();
+	}
+
+	found = false;
+		for(map<string,vector<int> >::iterator it=diff.begin();it!= diff.end();it++ )
+		{
+			difference = 0;
+			aux = 0;
+			
+			for(i=1;i<cypherText.size();i++)
+			{
+				if(aux == it->second.size()-1)
+				{
+				 key = abs( it->second[ it->second.size()-1] - cypherText[i]  );
+				 cout << key << endl;
+				 found = true;
+				 break;
+				}				
+
+
+				difference	= abs((int) cypherText[i] - (int) cypherText[i-1]) - it->second[aux];
+				cout << aux << endl;
+
+				if(difference == 0) aux++;
+ 			  else							  aux=0;
+			}
+			if(found)	break;
+		}
+	
+
+	string result = 	brokeAlphabetic(cypherText,key);
+
+	cout << 	result << endl;
+
+
   return "";
 }
 
@@ -24,37 +113,6 @@ BreakerCypher::transposition(string cypherText, string plainWords)
 	return  plainText;
 }
 
-vector<int> findCharacter(string text[8], unsigned int sizeColumn, char c)
-{
-  vector<int> index;
-
-  for(unsigned int i=0; i<sizeColumn; i++)
-  {
-    for(unsigned int j=0; j<8; j++)
-    {
-      if(text[j][i] == c)
-        index.push_back(j);
-    }
-  }
-
-  return index;
-}
-
-vector<int> findKey(string text[8], unsigned int sizeColumn, string word)
-{
-  vector<int> key;
-  vector<int> index;
-  int aux;
-
-  for(unsigned int j=0; j<word.size(); j++)
-  {
-    index = findCharacter(text, sizeColumn, word[j]);
-    aux = index[rand()%index.size()]; 
-    key.push_back(aux);
-  }
-
-  return key;
-}
 
 void writeToFile(string text, int key[8])
 {
