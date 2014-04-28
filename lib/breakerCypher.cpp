@@ -56,11 +56,16 @@ vector<int> findKey(string text[8], unsigned int sizeColumn, string word)
   return key;
 }
 
-void writeToFile(string text)
+void writeToFile(string text, int key[8])
 {
   ofstream file;
   file.open("plainText.txt");
-  file << text;
+  file << "PLAIN TEXT: " << endl <<  text << endl;
+  file << "KEY: " << endl;
+
+  for(int i=0; i<8; i++)
+    file << key[i] << " ";
+
   file.close();
 }
 
@@ -94,7 +99,15 @@ BreakerCypher::colummTransposition(string cypherText, string plainWords)
 
   do
   {
+    plainText.clear();
+
     bool isEnd = true;
+
+    for(unsigned int i=0; i<sizeColumn; i++)
+    {
+      for(unsigned int j=0; j<8; j++)
+        plainText.append(1, text[possibleKey[j]][i]);
+    }
 
     for(unsigned int i=0; i<word.size(); i++)
     {
@@ -107,13 +120,6 @@ BreakerCypher::colummTransposition(string cypherText, string plainWords)
 
     if(isEnd) break;
 
-    plainText.clear();
-
-    for(unsigned int i=0; i<sizeColumn; i++)
-    {
-      for(unsigned int j=0; j<8; j++)
-        plainText.append(1, text[possibleKey[j]][i]);
-    }
   } while(next_permutation(possibleKey, possibleKey+8));
 
 
@@ -121,8 +127,8 @@ BreakerCypher::colummTransposition(string cypherText, string plainWords)
   cout << "PLAIN TEXT: [" << plainText << "]" << endl;
 
   cout << "KEY: " << endl;
-  for(unsigned int i=0; i<key.size(); i++)
-    cout << key[i] << " ";
+  for(unsigned int i=0; i<8; i++)
+    cout << possibleKey[i] << " ";
   cout << endl;
 
   cout << "PLAIN WORDS:" << endl;
@@ -133,7 +139,7 @@ BreakerCypher::colummTransposition(string cypherText, string plainWords)
   for(int i=0; i<8; i++)
     cout << "[" << text[i] << "]" << endl;
 
-  writeToFile(plainText);
+  writeToFile(plainText, possibleKey);
 
   return plainText;
 }
