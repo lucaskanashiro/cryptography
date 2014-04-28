@@ -25,7 +25,6 @@ class Encryption
     string substitution(string text, string key);
     string alphabetic(string text, string key);
 
-		string prepareKey(string key);
 		string colummTransposition(string text , string key);
 		string transposition(string text, string key);
 };

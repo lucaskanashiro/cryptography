@@ -81,6 +81,8 @@ Encryption::colummTransposition(string text,string key)
       it++;
     }
 
+		sort(key.begin(), key.end(), greater<char>());
+
     it = matrix.begin();
 		maxSize = it->second.size();
 
@@ -90,40 +92,30 @@ Encryption::colummTransposition(string text,string key)
         it->second.append(1, ' ');
     }
 
-		sort(key.begin(), key.end(), greater<char>());
-
     it = matrix.begin();
+    unsigned int lineSize = maxSize;
     for(unsigned int j=0; j<maxSize; j++)
     {
       for(i=0; i<8; i++)
       {
-        while(it->first != key[i])
+        pair<multimap<char,string>::iterator, multimap<char,string>::iterator> ret;
+
+        ret = matrix.equal_range(key[i]);
+
+        for(it=ret.first;it!=ret.second;it++)
         {
-          if(it == matrix.end()) 
-          {
-            it = matrix.begin();
-            continue;
-          }
-          it++;
+          if(it->second.size() == lineSize)  
+            break;
         }
-        
-        result.append(1, it->second[j]);
+
+        result.append(1, it->second[0]);
+        it->second.erase(0, 1);
       }
+
+      lineSize--;
 		}
 
 		return result;
-}
-
-string
-Encryption::prepareKey(string key){
-	string result;	
-	result += key[0];
-	for(unsigned int i=1;i<key.size();i++){
-		if( 0 == count(result.begin(),result.end(),key[i]) ){
-			result+= key[i];
-		}
-	}
-	return result;
 }
 
 string 
