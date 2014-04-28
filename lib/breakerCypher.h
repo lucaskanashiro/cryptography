@@ -2,10 +2,12 @@
 #define BREAKER_CYPHER_H
 
 #include <string>
-#include <algorithm>
+#include <sstream>
+#include <fstream>
 #include <iostream>
 #include <vector>
-#include <map>
+#include <algorithm>
+#include <cstdlib>
 
 using namespace std;
 
