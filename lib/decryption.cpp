@@ -71,44 +71,58 @@ Decryption::decrypt(string cypherText, string key, int FLAG)
 string 
 Decryption::colummTransposition(string cypherText,string key)
 {
-		map<char,string> matrix;
-		unsigned int j, i, imatrix, lines = cypherText.size()/8;
-		string result,orderedKey;
+		multimap<char,string> matrix;
+		unsigned int maxSize, i;
+		string result;
 
-		key = this->prepareKey(key);
-		key.erase(key.begin()+8,key.end());
-		orderedKey =  key;
-		sort(orderedKey.begin(),orderedKey.end());
+    if(key.size() > 8)
+		  key.erase(key.begin()+8,key.end());
 
-		for(i=0;i<orderedKey.size();i++)
-			matrix[orderedKey[i]] = "";
+		for(i=0;i<key.size();i++)
+			matrix.insert(pair<char,string>(key[i], ""));
 
-		imatrix =i= 0;
-		while(  i < cypherText.size())
+    multimap<char,string>::reverse_iterator it1 = matrix.rbegin();
+
+		for(i=0;i<cypherText.size();i++)
+    {
+      if(it1 == matrix.rend()) it1 = matrix.rbegin();
+			it1->second.append(1, cypherText[i]);
+      it1++;
+    }
+
+	  multimap<char ,string >::iterator it;	
+
+
+    it = matrix.begin();
+		maxSize = it->second.size();
+		for(i=0;i<cypherText.size();i++)
 		{
-      matrix[ orderedKey[imatrix]] += cypherText[i];
-      i++;
-      if(i%lines == 0)imatrix =(imatrix+1) % 8;
-		}			
-
-		for(i = 0;i<lines;i++)
-			for(j=0;j<matrix.size();j++)	
-				result += matrix[key[j]][i];
-
+			if(it == matrix.end()) it = matrix.begin();
+			 unsigned int value =  matrix.count(it->first);
+			
+			if( value > 1)
+			{
+				pair<multimap<char,string>::reverse_iterator,multimap<char,string>::reverse_iterator> er = matrix.equal_range(it->first);
+				multimap<char,string>::reverse_iterator rv;
+				for(rv= er.second;rv!=er.first;++rv)
+				{
+						result.append(1,rv->second[0]);
+			  		rv->second.erase(0,1);
+				}
+				for(int l=0;l<value;l++)
+				{
+					if(it == matrix.end()) it = matrix.begin();
+					it++;
+				}
+			}else{
+		  	result.append(1,it->second[0]);
+			  it->second.erase(0,1);
+				it++;
+			}
+		}
 		return result;
 }
 
-string
-Decryption::prepareKey(string key){
-	string result;	
-	result += key[0];
-	for(unsigned int i=1;i<key.size();i++){
-		if( 0 == count(result.begin(),result.end(),key[i]) ){
-			result+= key[i];
-		}
-	}
-	return result;
-}
 
 string 
 Decryption::transposition(string cypherText, string key)

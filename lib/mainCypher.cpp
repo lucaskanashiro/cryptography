@@ -20,6 +20,16 @@ string readFile(string fileName){
 		return text;
 }
 
+void writeToFile(string text)
+{
+	ofstream fileText;
+	fileText.open("cypherText.txt");
+	
+	fileText << text << endl;
+		
+	fileText.close();
+}
+
 
 int main(int argc, char *argv[]){
 
@@ -50,14 +60,20 @@ int main(int argc, char *argv[]){
   else if(mode == "-tran")
     cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
   else if(mode == "-all")
-    cout << "todos" << endl;
-  else
+	{
+    cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
+    cypherText = encryption.cypher(cypherText, key, SUBSTITUTION);
+	}
+	else
   {
      cout << "invalid command " << endl;
      exit(-1);
   }
   
   cout <<"["<<cypherText<<"]"<< endl;
+
+	writeToFile(cypherText);
+
 
   return 0;
 }

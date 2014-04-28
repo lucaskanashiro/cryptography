@@ -23,7 +23,6 @@ class Decryption
     string substitution(string cypherText, string key);
     string alphabetic(string cypherText, string key);
 
-		string prepareKey(string key);
 		string colummTransposition(string cypherText,string key);
     string transposition(string cypherText, string key);
 };
