@@ -10,6 +10,30 @@ BreakerCypher::substitution(string cypherText, string plainWords)
   return plainText;
 }
 
+int findDiff(char a, char b)
+{
+  int diff;
+
+  if(a < b) swap(a,b);
+
+  if(b == 32 && (a >= '0' && a <= '9'))
+    diff = abs(b-a)-15;
+  else if(b == 32 && (a >= 'A' && a <= 'Z'))
+    diff = abs(b-a)-22;
+  else if(b == 32 && (a >= 'a' && a <= 'z'))
+    diff= abs(b-a)-28;
+  else if((b >= '0' && b <= '9') && (a >= 'A' && a <= 'Z'))
+    diff = abs(b-a)-7;
+  else if((b >= '0' && b <= '9') && (a >= 'a' && a <= 'z'))
+    diff = abs(b-a)-13;
+  else if((b >= 'A' && b <= 'Z') && (a >= 'a' && a <= 'z'))
+    diff = abs(b-a)-6;
+  else
+    diff = abs(b-a);
+
+  return diff;
+}
+
 string brokeAlphabetic(string cypherText, int key)
 {
   for(unsigned int i=0; i<cypherText.size(); i++)
@@ -43,6 +67,7 @@ string brokeAlphabetic(string cypherText, int key)
 
   return cypherText;
 }
+
 string 
 BreakerCypher::alphabetic(string cypherText, string plainWords)
 {
@@ -64,11 +89,16 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
 
 		for( j=1;j<word[i].size();j++)
 		{
-			d.push_back( abs(  (int) word[i][j] - (int) word[i][j-1])  );
+      cout << "a: [" << word[i][j] << "]   b: [" << word[i][j-1] << "]" << endl;  
+      int var = findDiff(word[i][j], word[i][j-1]);
+			d.push_back( var  );
+      cout << "VAR: [" << var << "]" << endl;
 		}
 		diff.insert(pair<string,vector<int> >(word[i],d));
 		d.clear();
 	}
+
+  cout << endl << "CYPHER TEXT: " << endl << endl;
 
 	found = false;
 		for(map<string,vector<int> >::iterator it=diff.begin();it!= diff.end();it++ )
@@ -78,24 +108,72 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
 			
 			for(i=1;i<cypherText.size();i++)
 			{
-				if(aux == it->second.size()-1)
+				if(aux == it->second.size())
 				{
-				 key = abs( it->second[ it->second.size()-1] - cypherText[i]  );
+				 //key = abs( it->second[ it->second.size()-1] - cypherText[i]  );
+				 key = findDiff(word[0][word[0].size()-1], cypherText[i-1]);
+         key = abs(63-key);
 				 cout << key << endl;
 				 found = true;
 				 break;
 				}				
 
+        cout << "a: [" << cypherText[i] << "]   b: [" << cypherText[i-1] << "]" << endl;  
+        int var = findDiff(cypherText[i], cypherText[i-1]);
+        cout << "VAR: [" << var << "]" << endl;
 
-				difference	= abs((int) cypherText[i] - (int) cypherText[i-1]) - it->second[aux];
+				//difference	= var - it->second[aux];
 				cout << aux << endl;
 
-				if(difference == 0) aux++;
+				if((var - it->second[aux] == 0) || ((63 - var) - it->second[aux] == 0)) aux++;
  			  else							  aux=0;
 			}
 			if(found)	break;
 		}
+
+  /*map<string,vector<int> >::iterator it = diff.begin();
 	
+  int dif = it->second[0], au=0, x;
+
+  cout << "PLAIN WORDS: " << endl;
+  for(; it != diff.end(); it++)
+  {
+    cout << it->first << " --> ";
+    for(int i=0; i<(int)it->second.size(); i++)
+      cout << it->second[i] << " ";
+    cout << endl;
+  }
+  string plainText="";
+  it = diff.begin();
+  cout << "CYPHER TEXT: " << endl;
+  for(unsigned int i=1; i<cypherText.size(); i++)
+  {
+    int tmp = abs(cypherText[i] - cypherText[i-1]);
+
+    if((cypherText[i] >= '0' && cypherText[i] <= '9') && (cypherText[i+1] >= 'A' && cypherText[i+1] <= 'Z') )
+      tmp -= 7;
+    else if((cypherText[i] >= 'A' && cypherText[i] <= 'Z') && (cypherText[i+1] >= 'a' && cypherText[i+1] <= 'z') )
+      tmp -= 6;
+    else if((cypherText[i] >= 'a' && cypherText[i] <= 'z') && (cypherText[i+1] >= '0' && cypherText[i+1] <= '9') )
+      tmp -= 13;
+    else if((cypherText[i] >= 'a' && cypherText[i] <= 'z') && cypherText[i+1] == 32)
+      tmp -= 28;
+    else if((cypherText[i] >= 'A' && cypherText[i] <= 'Z') && cypherText[i+1] == 32)
+      tmp -= 22;
+    else if((cypherText[i] >= '0' && cypherText[i] <= '9') && cypherText[i+1] == 32)
+      tmp -= 15;
+
+    cout << "[" << tmp << "]" << endl;
+
+    if(tmp == it->second[0])
+      key = abs(cypherText[i-1] - it->first[0]);
+
+    plainText = brokeAlphabetic(cypherText, key);
+
+    cout << "PLAIN TEXT: [" << plainText << "]" << endl;
+  }*/
+
+  cout << "KEY: [" << key << "]" << endl;
 
 	string result = 	brokeAlphabetic(cypherText,key);
 
