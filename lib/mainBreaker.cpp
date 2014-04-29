@@ -1,10 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include "key.h"
-#include "encryption.h"
-#include "decryption.h"
-#include "breakerCypher.h"
 #include <string>
+#include "breakerCypher.h"
 
 using namespace std;
 
@@ -30,7 +27,7 @@ int main(int argc, char *argv[]){
 	{
 		cout << "Try to type :"<< endl
 				 << " ./breaker <cyoherText> <plainWords> <mode>" <<endl
-				 << " Mode = ('-sub') | ('-tran') | ('-all')"<<endl;
+				 << " Mode = ('-sub') | ('-tran')"<<endl;
 		exit(-1);
 	}
 	
@@ -51,8 +48,6 @@ int main(int argc, char *argv[]){
     plainText = breaker.broke(cypherText, plainWords, SUBSTITUTION);
   else if(mode == "-tran")
     plainText = breaker.broke(cypherText, plainWords, TRANSPOSITION);
-  else if(mode == "-all")
-    cout << "todos" << endl;
   else
   {
      cout << "invalid command " << endl;

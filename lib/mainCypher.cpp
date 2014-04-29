@@ -1,23 +1,23 @@
 #include <iostream>
 #include <fstream>
-#include "key.h"
-#include "encryption.h"
-#include "decryption.h"
 #include <string>
+#include "encryption.h"
 
 using namespace std;
 
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
 
-
 string readFile(string fileName){
 		ifstream fileText;
-		string text;
+		string text, res="";
 		fileText.open(fileName.c_str());
-    getline(fileText, text);
+
+    while(getline(fileText, text))
+      res.append(text);
+
   	fileText.close();
-		return text;
+		return res;
 }
 
 void writeToFile(string text)
@@ -29,7 +29,6 @@ void writeToFile(string text)
 		
 	fileText.close();
 }
-
 
 int main(int argc, char *argv[]){
 
@@ -77,3 +76,4 @@ int main(int argc, char *argv[]){
 
   return 0;
 }
+

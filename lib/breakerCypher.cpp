@@ -68,20 +68,36 @@ string brokeAlphabetic(string cypherText, int key)
   return cypherText;
 }
 
+void writeToFile(string text, int key[8], int oneKey)
+{
+  ofstream file;
+  file.open("brokeText.txt");
+  file << "PLAIN TEXT: " << endl <<  text << endl;
+  file << "KEY: " << endl;
+
+  if(oneKey == -1)
+  {
+    for(int i=0; i<8; i++)
+      file << key[i] << " ";
+  }
+  else
+    file << oneKey;
+
+  file.close();
+}
+
 string 
 BreakerCypher::alphabetic(string cypherText, string plainWords)
 {
   int key;
-	unsigned int i,j,difference;
-	vector<int> pattern;
+	unsigned int i, j, aux;
 	map<string,vector<int> > diff;
-	stringstream ss (plainWords);
-	bool found ;
-	int aux;
+	bool found;
   vector<string> word;
   string tmp;
-  while(ss >> tmp) word.push_back(tmp);
 
+	stringstream ss (plainWords);
+  while(ss >> tmp) word.push_back(tmp);
 
 	for(i=0;i<word.size();i++)
 	{
@@ -89,98 +105,43 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
 
 		for( j=1;j<word[i].size();j++)
 		{
-      cout << "a: [" << word[i][j] << "]   b: [" << word[i][j-1] << "]" << endl;  
       int var = findDiff(word[i][j], word[i][j-1]);
-			d.push_back( var  );
-      cout << "VAR: [" << var << "]" << endl;
+			d.push_back(var);
 		}
 		diff.insert(pair<string,vector<int> >(word[i],d));
 		d.clear();
 	}
 
-  cout << endl << "CYPHER TEXT: " << endl << endl;
-
 	found = false;
-		for(map<string,vector<int> >::iterator it=diff.begin();it!= diff.end();it++ )
-		{
-			difference = 0;
-			aux = 0;
-			
-			for(i=1;i<cypherText.size();i++)
-			{
-				if(aux == it->second.size())
-				{
-				 //key = abs( it->second[ it->second.size()-1] - cypherText[i]  );
-				 key = findDiff(word[0][word[0].size()-1], cypherText[i-1]);
-         key = abs(63-key);
-				 cout << key << endl;
-				 found = true;
-				 break;
-				}				
-
-        cout << "a: [" << cypherText[i] << "]   b: [" << cypherText[i-1] << "]" << endl;  
-        int var = findDiff(cypherText[i], cypherText[i-1]);
-        cout << "VAR: [" << var << "]" << endl;
-
-				//difference	= var - it->second[aux];
-				cout << aux << endl;
-
-				if((var - it->second[aux] == 0) || ((63 - var) - it->second[aux] == 0)) aux++;
- 			  else							  aux=0;
-			}
-			if(found)	break;
-		}
-
-  /*map<string,vector<int> >::iterator it = diff.begin();
-	
-  int dif = it->second[0], au=0, x;
-
-  cout << "PLAIN WORDS: " << endl;
-  for(; it != diff.end(); it++)
+  
+  for(map<string,vector<int> >::iterator it=diff.begin();it!= diff.end();it++ )
   {
-    cout << it->first << " --> ";
-    for(int i=0; i<(int)it->second.size(); i++)
-      cout << it->second[i] << " ";
-    cout << endl;
+    aux = 0;
+    
+    for(i=1;i<cypherText.size();i++)
+    {
+      if(aux == it->second.size())
+      {
+       key = findDiff(word[0][word[0].size()-1], cypherText[i-1]);
+       key = abs(63-key);
+       found = true;
+       break;
+      }				
+
+      int var = findDiff(cypherText[i], cypherText[i-1]);
+
+      if((var - it->second[aux] == 0) || ((63 - var) - it->second[aux] == 0)) aux++;
+      else	aux=0;
+    }
+
+    if(found)	break;
   }
-  string plainText="";
-  it = diff.begin();
-  cout << "CYPHER TEXT: " << endl;
-  for(unsigned int i=1; i<cypherText.size(); i++)
-  {
-    int tmp = abs(cypherText[i] - cypherText[i-1]);
-
-    if((cypherText[i] >= '0' && cypherText[i] <= '9') && (cypherText[i+1] >= 'A' && cypherText[i+1] <= 'Z') )
-      tmp -= 7;
-    else if((cypherText[i] >= 'A' && cypherText[i] <= 'Z') && (cypherText[i+1] >= 'a' && cypherText[i+1] <= 'z') )
-      tmp -= 6;
-    else if((cypherText[i] >= 'a' && cypherText[i] <= 'z') && (cypherText[i+1] >= '0' && cypherText[i+1] <= '9') )
-      tmp -= 13;
-    else if((cypherText[i] >= 'a' && cypherText[i] <= 'z') && cypherText[i+1] == 32)
-      tmp -= 28;
-    else if((cypherText[i] >= 'A' && cypherText[i] <= 'Z') && cypherText[i+1] == 32)
-      tmp -= 22;
-    else if((cypherText[i] >= '0' && cypherText[i] <= '9') && cypherText[i+1] == 32)
-      tmp -= 15;
-
-    cout << "[" << tmp << "]" << endl;
-
-    if(tmp == it->second[0])
-      key = abs(cypherText[i-1] - it->first[0]);
-
-    plainText = brokeAlphabetic(cypherText, key);
-
-    cout << "PLAIN TEXT: [" << plainText << "]" << endl;
-  }*/
-
-  cout << "KEY: [" << key << "]" << endl;
 
 	string result = 	brokeAlphabetic(cypherText,key);
 
-	cout << 	result << endl;
+  writeToFile(result, 0, key);
 
-
-  return "";
+  return result;
 }
 
 string 
@@ -192,18 +153,6 @@ BreakerCypher::transposition(string cypherText, string plainWords)
 }
 
 
-void writeToFile(string text, int key[8])
-{
-  ofstream file;
-  file.open("plainText.txt");
-  file << "PLAIN TEXT: " << endl <<  text << endl;
-  file << "KEY: " << endl;
-
-  for(int i=0; i<8; i++)
-    file << key[i] << " ";
-
-  file.close();
-}
 
 string
 BreakerCypher::colummTransposition(string cypherText, string plainWords)
@@ -258,24 +207,7 @@ BreakerCypher::colummTransposition(string cypherText, string plainWords)
 
   } while(next_permutation(possibleKey, possibleKey+8));
 
-
-
-  cout << "PLAIN TEXT: [" << plainText << "]" << endl;
-
-  cout << "KEY: " << endl;
-  for(unsigned int i=0; i<8; i++)
-    cout << possibleKey[i] << " ";
-  cout << endl;
-
-  cout << "PLAIN WORDS:" << endl;
-  for(unsigned int i=0; i<word.size(); i++)
-    cout << "[" << word[i] << "]" << endl;
-
-  cout << "CYPHER TEXT:" << endl;
-  for(int i=0; i<8; i++)
-    cout << "[" << text[i] << "]" << endl;
-
-  writeToFile(plainText, possibleKey);
+  writeToFile(plainText, possibleKey, -1);
 
   return plainText;
 }

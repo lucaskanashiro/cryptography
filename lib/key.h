@@ -12,7 +12,6 @@ class Key
     Key();
 
     void generate(string fileName,int numberOfBits);
-		void readKeyInFile(string fileName);
     string getKeyText();
 
   private:

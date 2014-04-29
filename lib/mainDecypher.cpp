@@ -1,15 +1,12 @@
 #include <iostream>
 #include <fstream>
-#include "key.h"
-#include "encryption.h"
-#include "decryption.h"
 #include <string>
+#include "decryption.h"
 
 using namespace std;
 
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
-
 
 string readFile(string fileName){
 		ifstream fileText;
@@ -73,7 +70,6 @@ int main(int argc, char *argv[]){
 
 	writeToFile(plainText);
 
-
-
 	return 0;
 }
+

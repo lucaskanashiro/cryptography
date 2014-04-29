@@ -72,7 +72,7 @@ string
 Decryption::colummTransposition(string cypherText,string key)
 {
 		multimap<char,string> matrix;
-		unsigned int maxSize, i;
+		unsigned int i;
 		string result;
 
     if(key.size() > 8)
@@ -92,29 +92,30 @@ Decryption::colummTransposition(string cypherText,string key)
 
 	  multimap<char ,string >::iterator it;	
 
-
     it = matrix.begin();
-		maxSize = it->second.size();
 		for(i=0;i<cypherText.size();i++)
 		{
 			if(it == matrix.end()) it = matrix.begin();
 			 unsigned int value =  matrix.count(it->first);
 			
-			if( value > 1)
+			if(value > 1)
 			{
 				pair<multimap<char,string>::reverse_iterator,multimap<char,string>::reverse_iterator> er = matrix.equal_range(it->first);
 				multimap<char,string>::reverse_iterator rv;
-				for(rv= er.second;rv!=er.first;++rv)
+
+				for(rv= er.second; rv!=er.first; ++rv)
 				{
 						result.append(1,rv->second[0]);
 			  		rv->second.erase(0,1);
 				}
-				for(int l=0;l<value;l++)
+				for(unsigned int l=0;l<value;l++)
 				{
 					if(it == matrix.end()) it = matrix.begin();
 					it++;
 				}
-			}else{
+			}
+      else
+      {
 		  	result.append(1,it->second[0]);
 			  it->second.erase(0,1);
 				it++;

@@ -94,6 +94,7 @@ Encryption::colummTransposition(string text,string key)
 
     it = matrix.begin();
     unsigned int lineSize = maxSize;
+
     for(unsigned int j=0; j<maxSize; j++)
     {
       for(i=0; i<8; i++)
