@@ -7,6 +7,9 @@
 
 Key::Key(){}
 
+
+
+
 void 
 Key::writeKeyInFile(string fileName,string key)
 {
@@ -30,10 +33,16 @@ Key::generate(string fileName,int numberOfBits)
 
   for(int i=0; i<(this->numberOfBits/8); i++)
   {
-    char caracter = (char)(rand() % 94 + 33);
+		char caracter;
+		int type = rand()%3;
+		if(type == 0)
+		 caracter = (char) (rand()%10 + 48);
+		else if(type == 1)
+		 caracter = (char) (rand()%26 + 65);	
+		else
+		 caracter =(char)  (rand()%26 + 97);
     randomKey << caracter; 
   }
-
   writeKeyInFile(fileName,randomKey.str());
 
   this->keyText = randomKey.str();
