@@ -1,14 +1,6 @@
 #include "key.h"
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
 Key::Key(){}
-
-
-
 
 void 
 Key::writeKeyInFile(string fileName,string key)

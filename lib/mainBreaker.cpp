@@ -8,18 +8,25 @@ using namespace std;
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
 
-
-string readFile(string fileName){
+string 
+readFile(string fileName)
+{
 		ifstream fileText;
 		string text;
+
 		fileText.open(fileName.c_str());
+
     getline(fileText, text);
+
   	fileText.close();
+
 		return text;
 }
 
 
-int main(int argc, char *argv[]){
+int 
+main(int argc, char *argv[])
+{
 
 	string name = argv[0];
 
@@ -32,9 +39,7 @@ int main(int argc, char *argv[]){
 	}
 	
   BreakerCypher breaker;
-  string cypherText;
-  string plainWords;
-  string plainText;
+  string cypherText, plainWords, plainText;
 
   cypherText = readFile(argv[1]);
   cout << cypherText << endl;
@@ -46,8 +51,10 @@ int main(int argc, char *argv[]){
 
   if(mode == "-sub")	
     plainText = breaker.broke(cypherText, plainWords, SUBSTITUTION);
+
   else if(mode == "-tran")
     plainText = breaker.broke(cypherText, plainWords, TRANSPOSITION);
+
   else
   {
      cout << "invalid command " << endl;

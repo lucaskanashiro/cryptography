@@ -10,7 +10,8 @@ BreakerCypher::substitution(string cypherText, string plainWords)
   return plainText;
 }
 
-int findDiff(char a, char b)
+int 
+findDiff(char a, char b)
 {
   int diff;
 
@@ -34,7 +35,8 @@ int findDiff(char a, char b)
   return diff;
 }
 
-string brokeAlphabetic(string cypherText, int key)
+string 
+brokeAlphabetic(string cypherText, int key)
 {
   for(unsigned int i=0; i<cypherText.size(); i++)
   {
@@ -68,7 +70,8 @@ string brokeAlphabetic(string cypherText, int key)
   return cypherText;
 }
 
-void writeToFile(string text, int key[8], int oneKey)
+void 
+writeToFile(string text, int key[8], int oneKey)
 {
   ofstream file;
   file.open("brokeText.txt");
@@ -137,7 +140,7 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
     if(found)	break;
   }
 
-	string result = 	brokeAlphabetic(cypherText,key);
+	string result =	brokeAlphabetic(cypherText,key);
 
   writeToFile(result, 0, key);
 

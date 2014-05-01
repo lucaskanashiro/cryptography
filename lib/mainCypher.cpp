@@ -8,21 +8,27 @@ using namespace std;
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
 
-string readFile(string fileName){
-		ifstream fileText;
-		string text, res="";
-		fileText.open(fileName.c_str());
+string 
+readFile(string fileName)
+{
+	ifstream fileText;
+	string text, res="";
 
-    while(getline(fileText, text))
-      res.append(text);
+	fileText.open(fileName.c_str());
 
-  	fileText.close();
-		return res;
+  while(getline(fileText, text))
+  res.append(text);
+
+ 	fileText.close();
+
+	return res;
 }
 
-void writeToFile(string text)
+void 
+writeToFile(string text)
 {
 	ofstream fileText;
+
 	fileText.open("cypherText.txt");
 	
 	fileText << text << endl;
@@ -30,8 +36,9 @@ void writeToFile(string text)
 	fileText.close();
 }
 
-int main(int argc, char *argv[]){
-
+int 
+main(int argc, char *argv[])
+{
 	string name = argv[0];
 
 	if(argc != 4)
@@ -43,9 +50,8 @@ int main(int argc, char *argv[]){
 	}
 	
   Encryption encryption;
-  string plainText;
-  string key;
-  string cypherText;
+  string plainText, key, cypherText;
+
   plainText = readFile(argv[1]);
   cout << plainText << endl;
  
@@ -56,8 +62,10 @@ int main(int argc, char *argv[]){
 
   if(mode == "-sub")	
     cypherText = encryption.cypher(plainText, key, SUBSTITUTION);
+
   else if(mode == "-tran")
     cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
+
   else if(mode == "-all")
 	{
     cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
@@ -72,7 +80,6 @@ int main(int argc, char *argv[]){
   cout <<"["<<cypherText<<"]"<< endl;
 
 	writeToFile(cypherText);
-
 
   return 0;
 }

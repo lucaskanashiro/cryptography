@@ -75,7 +75,7 @@ Encryption::colummTransposition(string text,string key)
 
 		for(i=0;i<text.size();i++)
     {
-      if(it == matrix.end()) it = matrix.begin();
+			if(it == matrix.end()) it = matrix.begin();
 
 			it->second.append(1, text[i]);
       it++;
@@ -105,8 +105,8 @@ Encryption::colummTransposition(string text,string key)
 
         for(it=ret.first;it!=ret.second;it++)
         {
-          if(it->second.size() == lineSize)  
-            break;
+					if(it->second.size() == lineSize)  
+          	break;
         }
 
         result.append(1, it->second[0]);

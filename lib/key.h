@@ -3,6 +3,11 @@
 
 #include <string>
 #include <unistd.h>
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
+#include <sstream>
+
 using namespace std;
 
 class Key

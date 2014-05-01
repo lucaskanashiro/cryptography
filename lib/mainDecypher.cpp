@@ -8,16 +8,19 @@ using namespace std;
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
 
-string readFile(string fileName){
-		ifstream fileText;
-		string text;
-		fileText.open(fileName.c_str());
-    getline(fileText, text);
-  	fileText.close();
-		return text;
+string 
+readFile(string fileName)
+{
+	ifstream fileText;
+	string text;
+	fileText.open(fileName.c_str());
+	getline(fileText, text);
+	fileText.close();
+	return text;
 }
 
-void writeToFile(string text)
+void 
+writeToFile(string text)
 {
 	ofstream fileText;
 	fileText.open("decypherText.txt");
@@ -27,7 +30,9 @@ void writeToFile(string text)
 	fileText.close();
 }
 
-int main(int argc, char *argv[]){
+int
+main(int argc, char *argv[])
+{
 
 	string name = argv[0];
 
@@ -40,9 +45,8 @@ int main(int argc, char *argv[]){
 	}
 	
   Decryption decryption;
-  string cypherText;
-  string key;
-  string plainText;
+  string cypherText, key, plainText;
+
   cypherText = readFile(argv[1]);
   cout << cypherText << endl;
  
@@ -53,8 +57,10 @@ int main(int argc, char *argv[]){
 
   if(mode == "-sub")
     plainText = decryption.decrypt(cypherText, key, SUBSTITUTION);
+
   else if(mode == "-tran")
     plainText= decryption.decrypt(cypherText ,key, TRANSPOSITION);
+
   else if(mode == "-all")
 	{
     plainText = decryption.decrypt(cypherText, key, SUBSTITUTION);

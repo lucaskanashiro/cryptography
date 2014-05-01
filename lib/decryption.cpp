@@ -8,7 +8,7 @@ Decryption::alphabetic(string cypherText, string key)
   int length=0;
 
   for(unsigned int i=0; i<key.size(); i++)
-    length = (length + key[i]) % cypherText.size();
+		length = (length + key[i]) % cypherText.size();
 
   for(unsigned int i=0; i<cypherText.size(); i++)
   {

@@ -1,12 +1,7 @@
 #ifndef ENCRYPTION_H 
 #define ENCRYPTION_H
 
-#include "key.h"
-
 #include <string>
-#include <algorithm>
-#include <iostream>
-#include <vector>
 #include <map>
 #include <algorithm>
 

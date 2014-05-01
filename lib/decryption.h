@@ -1,11 +1,8 @@
 #ifndef DECRYPTION_H 
 #define DECRYPTION_H
 
-#include "key.h"
-
 #include <string>
 #include <algorithm>
-#include <iostream>
 #include <map>
 
 using namespace std;

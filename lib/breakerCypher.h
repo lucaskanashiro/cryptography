@@ -4,12 +4,9 @@
 #include <string>
 #include <sstream>
 #include <fstream>
-#include <iostream>
 #include <vector>
 #include <algorithm>
-#include <cstdlib>
 #include <map>
-#include <cmath>
 
 using namespace std;
 
