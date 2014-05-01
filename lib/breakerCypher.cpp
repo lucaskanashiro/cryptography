@@ -120,12 +120,12 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
   for(map<string,vector<int> >::iterator it=diff.begin();it!= diff.end();it++ )
   {
     aux = 0;
-    
+
     for(i=1;i<cypherText.size();i++)
     {
       if(aux == it->second.size())
       {
-       key = findDiff(word[0][word[0].size()-1], cypherText[i-1]);
+       key = findDiff(it->first[it->first.size()-1], cypherText[i-1]);
        key = abs(63-key);
        found = true;
        break;
@@ -137,10 +137,11 @@ BreakerCypher::alphabetic(string cypherText, string plainWords)
       else	aux=0;
     }
 
-    if(found)	break;
-  }
+    if(found)break;
+	 }
 
 	string result =	brokeAlphabetic(cypherText,key);
+
 
   writeToFile(result, 0, key);
 
