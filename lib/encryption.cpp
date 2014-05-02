@@ -132,6 +132,10 @@ Encryption::cypher(string text, string key, int FLAG)
     case 2:
       cypherText = this->substitution(text, key);
       break;
+    case 3:
+      cypherText = this->transposition(text, key);
+      cypherText = this->substitution(cypherText, key);
+      break;
   }
 
   return cypherText;

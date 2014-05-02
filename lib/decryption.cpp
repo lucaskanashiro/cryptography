@@ -63,6 +63,10 @@ Decryption::decrypt(string cypherText, string key, int FLAG)
     case 2:
       plainText = this->substitution(cypherText, key);
       break;
+		case 3:
+      plainText = this->substitution(cypherText, key);
+      plainText = this->transposition(plainText, key);
+      break;
   }
 
   return plainText;

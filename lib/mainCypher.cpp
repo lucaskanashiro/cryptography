@@ -7,6 +7,7 @@ using namespace std;
 
 #define TRANSPOSITION 1
 #define SUBSTITUTION 2
+#define PRODUCT 3
 
 string 
 readFile(string fileName)
@@ -68,8 +69,7 @@ main(int argc, char *argv[])
 
   else if(mode == "-all")
 	{
-    cypherText = encryption.cypher(plainText, key, TRANSPOSITION);
-    cypherText = encryption.cypher(cypherText, key, SUBSTITUTION);
+    cypherText = encryption.cypher(plainText, key, PRODUCT);
 	}
 	else
   {
