@@ -1,0 +1,54 @@
+Projeto em Grupo - Exercício de Programação 1
+
+Integrantes do Grupo: 
+  Lucas Kanashiro
+  Macartur de Sousa
+
+Requisitos do Projeto:
+
+-> Cifrador/Decifrador de Substituição alfabética 
+-> Cifrador/Decifrador de Transposição
+-> Cifrador/Decifrador de Produto
+
+    + Entrada: Texto em claro ou cifrado e chave
+    + Saída: Texto em claro ou cifrado
+
+-> Quebrador de Cifras (Substituição e Transposição)
+
+    + Entrada: Texto cifrado e algumas palavras do texto em claro
+    + Saída: Texto em claro e chave
+
+- Alfabeto = [az-AZ-09- ]
+
+Implementação:
+
+-> Cifra de Substituição alfabética:
+
+    + Cifra Monoalfabética
+    + Soma todos os caracteres da chave e incrementa esse valor no texto em claro
+
+-> Cifra de Transposição:
+
+    + Transposição com 8 colunas
+    + A chave é ordenada em ordem decrescente e assim o texto é embaralhado
+
+-> Cifra de Produto:
+
+    + Cifra de Transposição
+    + Cifra de Substituição
+
+-> Quebrador de Cifras:
+
+    + Transposição: Permuta-se as colunas até encontrar as palavras do texto em claro
+    + Substituição: Utiliza-se a diferença entre os caracteres das palavras do texto 
+                    em claro para identificar o padrão no texto cifrado
+
+-> Gerador de chaves:
+
+    + Gera chaves com a quantidade de bits que é passado (dentro do range de caracteres
+      especificados pelo projeto)
+
+
+
+***Código do Projeto disponívle em: https://github.com/lucaskanashiro/cryptography
+
