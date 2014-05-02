@@ -48,6 +48,18 @@ Implementação:
     + Gera chaves com a quantidade de bits que é passado (dentro do range de caracteres
       especificados pelo projeto)
 
+Executando o Projeto:
+
+-> ./cypher textoEmClaro.txt chave.txt <mode>
+-> ./decypher textoCifrado.txt chave.txt <mode>
+
+  <mode> = -sub, -tran, -all
+
+-> ./breaker textoCifrado.txt palavrasEmClaro.txt <mode>
+
+  <mode> = -sub, -tran
+
+-> ./key <numeroDeBits>
 
 
 ***Código do Projeto disponívle em: https://github.com/lucaskanashiro/cryptography
